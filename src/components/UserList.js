@@ -1,17 +1,16 @@
 import React from "react";
 
-function Home() {
+function UserList() {
   return (
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-6 text-start">
-            <h1>Home</h1>
-          </div>
+          <div className="col-md-12"></div>
+          <h1>UserList</h1>
         </div>
       </div>
     </>
   );
 }
 
-export default Home;
+export default UserList;

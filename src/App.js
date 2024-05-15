@@ -1,17 +1,23 @@
-import "./App.css";
-import Home from "./component/Home";
+import "./Style.css";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import UserList from "./components/UserList";
+import Footer from "./components/Footer";
+import AddUser from "./components/AddUser";
 
 function App() {
   return (
     <>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-
-      <Home />
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/userlist" element={<UserList />} />
+          <Route path="/adduser" element={<AddUser />} />
+        </Routes>
+        <Footer />
+      </div>
     </>
   );
 }
