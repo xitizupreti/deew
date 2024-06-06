@@ -26,4 +26,22 @@ switch ($method) {
             return;
         }
         break;
+
+    case "POST":
+        $userpostdata = json_decode(file_get_contents("php://input"));
+        // echo "success data";
+        // print_r($userpostdata);
+        // die;
+        $username = $userpostdata->username;
+        $useremail = $userpostdata->email;
+        $status = $userpostdata->status;
+        $result = mysqli_query($db_conn, "INSERT INTO tbl_user(username,useremail,status) VALUES('$username','$useremail','$status')");
+        if ($result) {
+            echo json_encode(["success" => "User Added Successfully."]);
+            return;
+        } else {
+            echo json_encode(["success" => "Please Check Data."]);
+            return;
+        }
+        break;
 }

@@ -3,12 +3,20 @@
   box-sizing: border-box;
   padding: 0px;
 }
-nav {
+
+.nav {
   height: 80px;
   position: relative;
   font-weight: 700;
-  background-color: yellow;
+  background-color: yellow !important;
 }
+
+.nav1 {
+  padding: 20px;
+  font-weight: 700;
+  background-color: yellow !important;
+}
+
 #navbarSupportedContent {
   justify-content: space-evenly;
 }
@@ -16,9 +24,11 @@ nav {
 .form-inline {
   display: flex;
 }
-.form-control{
+
+.form-control {
   margin-right: 10px;
 }
+
 div#addForm {
   padding: 20px;
 }

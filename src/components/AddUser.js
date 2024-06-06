@@ -1,42 +1,83 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddUser() {
+  const navigate = useNavigate();
+  const [formValue, setFormValue] = useState({
+    username: "",
+    email: "",
+    status: "",
+  });
+  const [message, setMessage] = useState("");
+  const handleInput = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formValue);
+    const formData = {
+      username: formValue.username,
+      email: formValue.email,
+      status: formValue.status,
+    };
+    const res = await axios.post(
+      "http://localhost/deew/api/user.php",
+      formData
+    );
+    if (res.data.success) {
+      setMessage(res.data.success);
+      setTimeout(() => {
+        navigate("/userlist");
+      }, 2000);
+    }
+  };
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="col-md-6">
             <div id="addForm">
-              <form>
-                <label for="inputPassword" class="col-sm-2">
+              <p className="text-success">{message}</p>
+              <form onSubmit={handleSubmit}>
+                <label htmlFor="username" className="col-sm-2">
                   UserName
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
+                    id="username"
                     type="text"
                     name="username"
-                    class="form-control"
+                    value={formValue.username}
+                    onChange={handleInput}
+                    className="form-control"
                     placeholder="UserName"
                   />
                 </div>
 
-                <label for="inputPassword" class="col-sm-2">
+                <label htmlFor="email" className="col-sm-2">
                   Email
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
+                    id="email"
                     type="text"
                     name="email"
-                    class="form-control"
+                    value={formValue.email}
+                    onChange={handleInput}
+                    className="form-control"
                     placeholder="Email"
                   />
                 </div>
 
-                <label for="inputPassword" class="col-sm-2">
-                  Status
-                </label>
-                <div class="col-sm-10">
-                  <select name="status" className="form_control">
+                <label className="col-sm-2">Status</label>
+                <div className="col-sm-10">
+                  <select
+                    name="status"
+                    value={formValue.status}
+                    onChange={handleInput}
+                    className="form_control"
+                  >
                     <option value="">-Select Status-</option>
                     <option value="1">Active</option>
                     <option value="0">InActive</option>
@@ -44,8 +85,8 @@ function AddUser() {
                 </div>
 
                 <div>
-                  <label for="inputPassword" class="col-sm-2"></label>
-                  <div class="col-sm-10">
+                  <label className="col-sm-2"></label>
+                  <div className="col-sm-10">
                     <button name="submit" className="btn btn-success">
                       Submit
                     </button>
