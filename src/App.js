@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import UserList from "./components/UserList";
 import Footer from "./components/Footer";
 import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/userlist" element={<UserList />} />
           <Route path="/adduser" element={<AddUser />} />
+          <Route path="/edituser/:id" element={<EditUser />} />
         </Routes>
         <Footer />
       </div>

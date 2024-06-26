@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AddUser() {
+function EditUser() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [formValue, setFormValue] = useState({
     username: "",
     email: "",
@@ -13,15 +14,26 @@ function AddUser() {
   const handleInput = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    const userRowdata = async () => {
+      const getUserdata = await fetch(
+        "http://localhost/react-php/api/user.php/" + id
+      );
+      const resuserdata = await getUserdata.json();
+      setFormValue(resuserdata);
+    };
+    userRowdata();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formValue);
     const formData = {
+      id: id,
       username: formValue.username,
       email: formValue.email,
       status: formValue.status,
     };
-    const res = await axios.post(
+    const res = await axios.put(
       "http://localhost/react-php/api/user.php",
       formData
     );
@@ -88,7 +100,7 @@ function AddUser() {
                   <label className="col-sm-2"></label>
                   <div className="col-sm-10">
                     <button name="submit" className="btn btn-success">
-                      Submit
+                      Update
                     </button>
                   </div>
                 </div>
@@ -101,4 +113,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default EditUser;
